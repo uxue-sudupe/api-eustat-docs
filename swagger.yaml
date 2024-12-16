@@ -175,15 +175,8 @@ paths:
                             items:
                               type: string
               example:
-                query:
-                  - code: "ámbitos territoriales"
-                    selection:
-                      filter: "item"
-                      values: ["00001"]
-                  - code: "sexo"
-                    selection:
-                      filter: "item"
-                      values: ["10"]
+                 query: []
+
       responses:
         '200':
           description: Datos obtenidos con éxito
