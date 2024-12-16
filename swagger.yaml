@@ -11,6 +11,8 @@ servers:
 paths:
   /{lang}/DB:
     get:
+      tags:
+        - Catálogo de datos
       summary: Obtener catálogo de datos
       description: Devuelve el catálogo de datos en el idioma seleccionado.
       parameters:
@@ -29,6 +31,101 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: true
         '404':
           description: Recurso no encontrado
+
+  /{lang}/{tableId}:
+    get:
+      tags:
+        - Obtener metadatos de una tabla
+      summary: Obtener metadatos de una tabla
+      description: Devuelve los metadatos de una tabla específica en el idioma seleccionado.
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          description: Idioma de la respuesta
+          schema:
+            type: string
+            enum: [es, eu, en]
+            default: es
+        - name: tableId
+          in: path
+          required: true
+          description: Identificador de la tabla (por ejemplo, PX_010154_cepv1_ep06b.px)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Metadatos obtenidos con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          description: Tabla no encontrada
+
+  /{lang}/{tableId}:
+    post:
+      tags:
+        - Obtener datos de una tabla
+      summary: Obtener datos de una tabla
+      description: Realiza una consulta POST para obtener datos de una tabla específica.
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          description: Idioma de la respuesta
+          schema:
+            type: string
+            enum: [es, eu, en]
+            default: es
+        - name: tableId
+          in: path
+          required: true
+          description: Identificador de la tabla (por ejemplo, PX_010154_cepv1_ep06b.px)
+          schema:
+            type: string
+      requestBody:
+        description: JSON de la consulta para seleccionar variables específicas de la tabla. Por defecto, devuelve todos los datos.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: array
+                  description: Selección de variables en formato JSON
+                  default: []
+                  items:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Código de la variable
+                      selection:
+                        type: object
+                        properties:
+                          filter:
+                            type: string
+                            description: Tipo de filtro
+                            default: "item"
+                          values:
+                            type: array
+                            description: Valores seleccionados para la variable
+                            items:
+                              type: string
+      responses:
+        '200':
+          description: Datos obtenidos con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Error en la solicitud
+        '404':
+          description: Tabla no encontrada
