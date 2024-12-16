@@ -12,13 +12,16 @@ paths:
   /{lang}/DB:
     get:
       summary: Obtener catálogo de datos
+      description: Devuelve el catálogo de datos en el idioma seleccionado.
       parameters:
         - name: lang
           in: path
           required: true
+          description: Idioma de la respuesta
           schema:
             type: string
-          description: Idioma de la respuesta (ejemplo: "es", "eu", "en")
+            enum: [es, eu, en]
+            default: es
       responses:
         '200':
           description: Datos obtenidos con éxito
@@ -26,5 +29,6 @@ paths:
             application/json:
               schema:
                 type: object
+                additionalProperties: true
         '404':
           description: Recurso no encontrado
