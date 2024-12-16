@@ -53,7 +53,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: Identificador de la tabla (por ejemplo, PX_010154_cepv1_ep06b.px)
+          description: Identificador de la tabla (por ejemplo, PX_170115_ccet_cet01tb.px)
           schema:
             type: string
       responses:
@@ -84,7 +84,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: Identificador de la tabla (por ejemplo, PX_010154_cepv1_ep06b.px)
+          description: Identificador de la tabla (por ejemplo, PX_170115_ccet_cet01tb.px)
           schema:
             type: string
       requestBody:
