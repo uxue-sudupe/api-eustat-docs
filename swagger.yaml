@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: API de Eustat
+  description: Documentación interactiva para la API de Eustat
+  version: 1.0.0
+
+servers:
+  - url: https://www.eustat.eus/bankupx/api/v1
+    description: Servidor de datos abiertos de Eustat
+
+paths:
+  /{lang}/DB:
+    get:
+      summary: Obtener catálogo de datos
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Idioma de la respuesta (ejemplo: "es", "eu", "en")
+      responses:
+        '200':
+          description: Datos obtenidos con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Recurso no encontrado
