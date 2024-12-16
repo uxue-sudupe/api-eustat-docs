@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: API de Eustat
-  description: Documentación interactiva para la API de Eustat
+  description: Documentación interactiva para la API de Eustat. Las respuestas están en formato **JSON-stat**.
   version: 1.0.0
 
 servers:
@@ -14,7 +14,7 @@ paths:
       tags:
         - Catálogo de datos
       summary: Consultar catálogo de datos
-      description: Devuelve el catálogo de datos disponibles en el idioma seleccionado.
+      description: Devuelve el catálogo de datos disponibles en el idioma seleccionado. La respuesta está en formato JSON-stat.
       parameters:
         - name: lang
           in: path
@@ -32,6 +32,22 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+              example:
+                dataset:
+                  dimension:
+                    id: ["dataset", "time"]
+                    size: [1, 2]
+                    dataset:
+                      label: "Dataset example"
+                      category:
+                        index: {"dataset1": 0}
+                        label: {"dataset1": "Example dataset"}
+                    time:
+                      label: "Time"
+                      category:
+                        index: {"2020": 0, "2021": 1}
+                        label: {"2020": "2020", "2021": "2021"}
+                  value: [100, 150]
         '404':
           description: Catálogo no encontrado
 
@@ -40,7 +56,7 @@ paths:
       tags:
         - Obtener metadatos de una tabla
       summary: Obtener metadatos de una tabla
-      description: Devuelve los metadatos de una tabla específica en el idioma seleccionado.
+      description: Devuelve los metadatos de una tabla específica en el idioma seleccionado. La respuesta está en formato JSON-stat.
       parameters:
         - name: lang
           in: path
@@ -53,7 +69,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: Identificador de la tabla (por ejemplo, PX_170115_ccet_cet01tb.px)
+          description: Identificador de la tabla (por ejemplo, PX_010154_cepv1_ep06b.px)
           schema:
             type: string
       responses:
@@ -64,6 +80,22 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+              example:
+                dataset:
+                  dimension:
+                    id: ["territory", "age"]
+                    size: [2, 3]
+                    territory:
+                      label: "Territory"
+                      category:
+                        index: {"00001": 0, "00002": 1}
+                        label: {"00001": "Total", "00002": "Ámbito 2"}
+                    age:
+                      label: "Age"
+                      category:
+                        index: {"10": 0, "20": 1, "30": 2}
+                        label: {"10": "10-19", "20": "20-29", "30": "30-39"}
+                  value: [100, 150, 200, 120, 180, 210]
         '404':
           description: Tabla no encontrada
 
@@ -71,7 +103,7 @@ paths:
       tags:
         - Obtener datos de una tabla
       summary: Obtener datos de una tabla
-      description: Realiza una consulta POST para obtener datos de una tabla específica.
+      description: Realiza una consulta POST para obtener datos de una tabla específica. La respuesta está en formato JSON-stat.
       parameters:
         - name: lang
           in: path
@@ -84,11 +116,11 @@ paths:
         - name: id
           in: path
           required: true
-          description: Identificador de la tabla (por ejemplo, PX_170115_ccet_cet01tb.px)
+          description: Identificador de la tabla
           schema:
             type: string
       requestBody:
-        description: JSON de la consulta para seleccionar variables específicas de la tabla. Por defecto, devuelve todos los datos.
+        description: JSON de la consulta para seleccionar variables específicas de la tabla.
         required: true
         content:
           application/json:
@@ -98,25 +130,22 @@ paths:
                 query:
                   type: array
                   description: Selección de variables en formato JSON
-                  default: []
                   items:
                     type: object
                     properties:
                       code:
                         type: string
-                        description: Código de la variable
                       selection:
                         type: object
                         properties:
                           filter:
                             type: string
-                            description: Tipo de filtro
-                            default: "item"
                           values:
                             type: array
-                            description: Valores seleccionados para la variable
                             items:
                               type: string
+              example:
+                query: []
       responses:
         '200':
           description: Datos obtenidos con éxito
@@ -125,6 +154,12 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+              example:
+                dataset:
+                  dimension:
+                    id: ["territory", "age"]
+                    size: [2, 3]
+                  value: [100, 150, 200, 120, 180, 210]
         '400':
           description: Error en la solicitud
         '404':
