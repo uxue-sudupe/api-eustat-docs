@@ -9,7 +9,33 @@ servers:
     description: Servidor de datos abiertos de Eustat
 
 paths:
-  /{lang}/{id}:
+  /{lang}/DB:
+    get:
+      tags:
+        - Catálogo de datos
+      summary: Consultar catálogo de datos
+      description: Devuelve el catálogo de datos disponibles en el idioma seleccionado.
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          description: Idioma de la respuesta
+          schema:
+            type: string
+            enum: [es, eu, en]
+            default: es
+      responses:
+        '200':
+          description: Catálogo de datos obtenido con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          description: Catálogo no encontrado
+
+  /{lang}/DB/{id}:
     get:
       tags:
         - Obtener metadatos de una tabla
