@@ -34,7 +34,7 @@ paths:
         '404':
           description: Recurso no encontrado
 
-  /{lang}/{tableId}:
+  /{lang}/{id}:
     get:
       tags:
         - Obtener metadatos de una tabla
@@ -49,7 +49,7 @@ paths:
             type: string
             enum: [es, eu, en]
             default: es
-        - name: tableId
+        - name: id
           in: path
           required: true
           description: Identificador de la tabla (por ejemplo, PX_010154_cepv1_ep06b.px)
@@ -66,7 +66,6 @@ paths:
         '404':
           description: Tabla no encontrada
 
-  /{lang}/{tableId}:
     post:
       tags:
         - Obtener datos de una tabla
@@ -81,7 +80,7 @@ paths:
             type: string
             enum: [es, eu, en]
             default: es
-        - name: tableId
+        - name: id
           in: path
           required: true
           description: Identificador de la tabla (por ejemplo, PX_010154_cepv1_ep06b.px)
