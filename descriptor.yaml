@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: API de Eustat
   description: Documentación interactiva para la API de Eustat. Respuestas en formato JSON-stat.
-  version: 1.0
+  version: 1.0.0
 
 servers:
   - url: https://www.eustat.eus/bankupx/api/v1
@@ -134,8 +134,13 @@ paths:
       tags:
         - Obtener datos de una tabla
       summary: Obtener datos de una tabla
-      description: Realiza una consulta POST para obtener datos específicos en formato JSON-stat. Por defecto, se consulta toda la tabla. En caso de querer realizar una consulta específica, hay que obtener el código
-        de la consulta en formato json a partir de la interfaz de selección de variables y valores de la tabla, en la dirección https://www.eustat.eus/bankupx/pxweb/{lang}/DB/-/{id}
+      description: |
+        Realiza una consulta POST para obtener datos específicos en formato JSON-stat. Por defecto, se consulta toda la tabla. 
+        
+        En caso de querer realizar una consulta específica, hay que obtener el código de la consulta en formato json a partir de la interfaz de selección de variables y valores de la tabla, en la 
+        dirección:
+        
+        <b>https://www.eustat.eus/bankupx/pxweb/{lang}/DB/-/{id}</b>
       parameters:
         - name: lang
           in: path
