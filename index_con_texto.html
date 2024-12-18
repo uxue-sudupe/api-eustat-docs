@@ -5,55 +5,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentación de la API de Eustat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.0/swagger-ui.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #32329f;
+            color: #fff;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        main h1, main h2 {
+            color: #32329f;
+        }
+        main code {
+            background: #f4f4f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #d6336c;
+        }
+        main ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        main a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        main a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            background: #32329f;
+            color: #fff;
+        }
+        footer a {
+            color: #ffd700;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <!-- Texto adicional arriba -->
-    <h1>Documentación Interactiva de la API de Eustat</h1>
-    <p>
-        El servicio API de Eustat permite acceder mediante peticiones URL a toda la información disponible en el banco de datos de Eustat.
-        Las peticiones URL tienen la siguiente estructura:
-    </p>
-    <p><code>https://www.eustat.eus/bankupx/api/v1/{lang}/DB/[id]</code></p>
-    
-    <p>El campo <code>{lang}</code> se corresponde con el idioma. Es obligatorio y puede tomar los siguientes valores:</p>
-    <ul>
-        <li><b>ES</b>: español</li>
-        <li><b>EU</b>: euskera</li>
-        <li><b>EN</b>: inglés</li>
-    </ul>
-    
-    <p>El campo <code>[id]</code> es opcional y corresponde al identificador de la tabla con los datos o metadatos de interés:</p>
-    <ul>
-        <li>Si no se incluye en la consulta, se obtiene el catálogo de tablas del banco de datos.</li>
-        <li>Si se incluye el <code>id</code> y se usa la función <b>GET</b>, se obtienen los metadatos de la tabla.</li>
-        <li>Si se incluye el <code>id</code> y se usa la función <b>POST</b> junto con la consulta en formato JSON, se obtienen los datos de la tabla.</li>
-    </ul>
-    
-    <p>
-        Para formular las consultas en formato JSON, se puede usar la interfaz de usuario de la base de datos. En la página correspondiente a la tabla de interés,
-        haga clic en el apartado <b>“Disponer de esta tabla en su aplicación”</b>. Esto le brindará información sobre la URL y la consulta que debe enviar para recoger los datos con la API.
-    </p>
+    <header>
+        <h1>Documentación Interactiva de la API de Eustat</h1>
+        <p>Acceda a toda la información del banco de datos de Eustat mediante peticiones URL.</p>
+    </header>
 
-    <!-- Interfaz de Swagger UI -->
-    <div id="swagger-ui"></div>
+    <main>
+        <!-- Texto adicional arriba -->
+        <h1>Introducción</h1>
+        <p>
+            El servicio API de Eustat permite acceder mediante peticiones URL a toda la información disponible en el banco de datos de Eustat. Las peticiones URL tienen la siguiente estructura:
+        </p>
+        <p><code>https://www.eustat.eus/bankupx/api/v1/{lang}/DB/[id]</code></p>
 
-    <!-- Texto adicional abajo -->
-    <h2>Para usuarios de R y Python</h2>
-    <p>
-        Se han desarrollado tutoriales con ejemplos de uso de la API de Eustat para <b>R</b> y <b>Python</b>. El código está disponible en GitHub:
-    </p>
-    <ul>
-        <li>
-            <a href="https://github.com/uxue-sudupe/tutorial-api-eustat/blob/main/Tutorial_API_Eustat_R.ipynb" target="_blank">
-                Tutorial API Eustat en R
-            </a>
-        </li>
-        <li>
-            <a href="https://github.com/uxue-sudupe/tutorial-api-eustat/blob/main/Tutorial_API_Eustat_Python.ipynb" target="_blank">
-                Tutorial API Eustat en Python
-            </a>
-        </li>
-    </ul>
+        <h2>Parámetros de la URL</h2>
+        <p>El campo <code>{lang}</code> se corresponde con el idioma. Es obligatorio y puede tomar los siguientes valores:</p>
+        <ul>
+            <li><b>ES</b>: español</li>
+            <li><b>EU</b>: euskera</li>
+            <li><b>EN</b>: inglés</li>
+        </ul>
+
+        <p>El campo <code>[id]</code> es opcional y corresponde al identificador de la tabla con los datos o metadatos de interés:</p>
+        <ul>
+            <li>Si no se incluye en la consulta, se obtiene el catálogo de tablas del banco de datos.</li>
+            <li>Si se incluye el <code>id</code> y se usa la función <b>GET</b>, se obtienen los metadatos de la tabla.</li>
+            <li>Si se incluye el <code>id</code> y se usa la función <b>POST</b> junto con la consulta en formato JSON, se obtienen los datos de la tabla.</li>
+        </ul>
+
+        <h2>Formato de consulta JSON</h2>
+        <p>
+            Para formular las consultas en formato JSON, se puede usar la interfaz de usuario de la base de datos, y seleccionar las variables y valores de interés en la página correspondiente a la tabla.
+        </p>
+        <h3>Ejemplo de selección de variables y valores</h3>
+        <img src="https://github.com/uxue-sudupe/tutorial-api-eustat/raw/main/imagen/PIB_seleccion.png" alt="Selección de variables y valores">
+        <p>
+            Haga clic en el apartado <b>“Disponer de esta tabla en su aplicación”</b>. Esto le brindará información sobre la URL y la consulta que debe enviar para recoger los datos con la API.
+        </p>
+        <img src="https://github.com/uxue-sudupe/tutorial-api-eustat/raw/main/imagen/PIB_consulta.png" alt="Consulta JSON generada">
+
+        <h2>API interactiva</h2>
+        <p>
+            La API interactiva de Eustat permite explorar y probar las funcionalidades de la API directamente desde una interfaz gráfica basada en Swagger. A través de esta herramienta, los usuarios pueden:
+        </p>
+        <ul>
+            <li>Realizar peticiones <b>GET</b> y <b>POST</b> para consultar datos.</li>
+            <li>Probar diferentes configuraciones de parámetros y filtros.</li>
+            <li>Visualizar la respuesta de la API en tiempo real.</li>
+        </ul>
+        <p>Acceda a la interfaz interactiva haciendo clic en el siguiente enlace:</p>
+        <a href="https://github.com/uxue-sudupe/api-eustat-docs/open_api.html" target="_blank">Ir a la API interactiva</a>
+
+        <!-- Texto adicional abajo -->
+        <h2>Para usuarios de R y Python</h2>
+        <p>
+            Se han desarrollado tutoriales con ejemplos de uso de la API de Eustat para <b>R</b> y <b>Python</b>. El código está disponible en GitHub:
+        </p>
+        <ul>
+            <li>
+                <a href="https://github.com/uxue-sudupe/tutorial-api-eustat/blob/main/Tutorial_API_Eustat_R.ipynb" target="_blank">
+                    Tutorial API Eustat en R
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/uxue-sudupe/tutorial-api-eustat/blob/main/Tutorial_API_Eustat_Python.ipynb" target="_blank">
+                    Tutorial API Eustat en Python
+                </a>
+            </li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>Documentación API Eustat | Diseñado con ❤️ por <a href="https://github.com/uxue-sudupe">Uxue Sudupe</a></p>
+    </footer>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.0/swagger-ui-bundle.js"></script>
@@ -63,7 +157,7 @@
                 url: "descriptor.yaml", // Archivo descriptor
                 dom_id: '#swagger-ui',
             });
-        }
+        };
     </script>
 </body>
 </html>
