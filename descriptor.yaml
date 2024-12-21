@@ -137,10 +137,11 @@ paths:
       description: |
         Realiza una consulta POST para obtener datos de una tabla del banco de datos en formato JSON-stat. Por defecto, se consulta toda la tabla. 
         
-        En caso de querer realizar una consulta específica, hay que obtener el código de la consulta en formato json a partir de la interfaz de selección de variables y valores de la tabla, en la 
+        En caso de querer realizar una consulta específica, hay que obtener el código de la consulta en formato json a partir de la interfaz de selección en:
         dirección:
-        
+       
         <b>https://www.eustat.eus/bankupx/pxweb/{lang}/DB/-/{id}</b>
+        
       parameters:
         - name: lang
           in: path
