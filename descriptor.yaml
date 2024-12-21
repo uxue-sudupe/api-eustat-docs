@@ -12,9 +12,9 @@ paths:
   /{lang}/DB:
     get:
       tags:
-        - Catálogo 
-      summary: Consultar catálogo de tablas
-      description: Devuelve el catálogo de datos disponibles en formato JSON.
+        - Catálogo de datos
+      summary: Consultar catálogo de tablas de datos
+      description: Devuelve el catálogo de tablas del banco de datos en formato JSON.
       parameters:
         - name: lang
           in: path
@@ -62,7 +62,7 @@ paths:
   /{lang}/DB/{id}:
     get:
       tags:
-        - Obtener metadatos de una tabla
+        - Metadatos de una tabla
       summary: Obtener metadatos de una tabla
       description: Devuelve los metadatos de una tabla específica en formato JSON.
       parameters:
@@ -132,7 +132,7 @@ paths:
 
     post:
       tags:
-        - Obtener datos de una tabla
+        - Datos de una tabla
       summary: Obtener datos de una tabla
       description: |
         Realiza una consulta POST para obtener datos de una tabla del banco de datos en formato JSON-stat. Por defecto, se consulta toda la tabla. 
