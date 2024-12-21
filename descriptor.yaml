@@ -1,12 +1,22 @@
 openapi: 3.0.0
 info:
-  title: API de Eustat
-  description: Documentación interactiva para la API de Eustat. Respuestas en formato JSON-stat.
+  title: API de Eustat: Acceso a Datos Abiertos
+  description: >
+    Documentación interactiva para la API de Eustat. 
+    La API permite acceder a datos abiertos en formato JSON-stat, con funciones para explorar catálogos, metadatos y datos detallados.
   version: 1.0.0
 
 servers:
   - url: https://www.eustat.eus/bankupx/api/v1
     description: Servidor de datos abiertos de Eustat
+
+tags:
+  - name: Catálogo de datos
+    description: Endpoints relacionados con la obtención del catálogo de datos.
+  - name: Metadatos
+    description: Endpoints para consultar metadatos de tablas específicas.
+  - name: Datos
+    description: Endpoints para consultar datos específicos de una tabla.
 
 paths:
   /{lang}/DB:
@@ -19,7 +29,10 @@ paths:
         - name: lang
           in: path
           required: true
-          description: Idioma de la respuesta
+          description: Idioma de la respuesta. Los valores disponibles son:
+                       - `es` (español)
+                       - `eu` (euskera)
+                       - `en` (inglés)
           schema:
             type: string
             enum: [es, eu, en]
@@ -62,7 +75,7 @@ paths:
   /{lang}/DB/{id}:
     get:
       tags:
-        - Metadatos de una tabla
+        - Metadatos
       summary: Obtener metadatos de una tabla
       description: Devuelve los metadatos de una tabla específica en formato JSON.
       parameters:
@@ -132,17 +145,17 @@ paths:
 
     post:
       tags:
-        - Datos de una tabla
+        - Datos
       summary: Obtener datos de una tabla
       description: |
-        Realiza una consulta POST para obtener datos de una tabla del banco de datos en formato JSON-stat. Por defecto, se consulta toda la tabla. 
+        Realiza una consulta POST para obtener datos de una tabla del banco de datos en formato JSON-stat. Por defecto, se consulta toda la tabla.
         
-        En caso de querer realizar una consulta específica, con filtrados, hay que obtener el código de la consulta en formato json a partir de la interfaz de selección de variables y valores de la tabla, en la 
-        dirección:
+        Para realizar una consulta específica, use la URL:
         
-        <b>https://www.eustat.eus/bankupx/pxweb/{lang}/DB/-/{id}</b>
-
-        Ver un ejemplo de consulta <a href="index.html">aquí</a>
+        https://www.eustat.eus/bankupx/pxweb/{lang}/DB/-/{id}
+        
+        Ejemplo: https://www.eustat.eus/bankupx/pxweb/es/DB/-/PX_170115_ccet_cet01tb.px
+        
       parameters:
         - name: lang
           in: path
@@ -183,8 +196,19 @@ paths:
                             items:
                               type: string
               example:
-                 query: []
-
+                query:
+                  - code: "territory"
+                    selection:
+                      filter: "item"
+                      values: ["00001"]
+                  - code: "sex"
+                    selection:
+                      filter: "item"
+                      values: ["10", "20"]
+                  - code: "time"
+                    selection:
+                      filter: "item"
+                      values: ["20210101", "20220101"]
       responses:
         '200':
           description: Datos obtenidos con éxito
@@ -212,5 +236,13 @@ paths:
                   value: [100, 150]
         '400':
           description: Error en la solicitud
+          content:
+            application/json:
+              example:
+                error: "Solicitud inválida. Verifique los parámetros enviados."
         '404':
           description: Tabla no encontrada
+          content:
+            application/json:
+              example:
+                error: "El ID de la tabla proporcionado no existe."
