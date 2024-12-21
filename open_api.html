@@ -12,23 +12,11 @@
     <script>
         window.onload = () => {
             const ui = SwaggerUIBundle({
-                url: 'decriptor.yaml', // Cambia esta ruta a tu archivo YAML
+                url: 'decriptor.yaml', 
                 dom_id: '#swagger-ui',
             });
-
-            // Personalización de textos
-            const translateUI = () => {
-                // Cambia el texto de los elementos una vez que SwaggerUI ha cargado
-                document.querySelectorAll('.required').forEach(el => el.textContent = 'requerido');
-                document.querySelectorAll('.download-url-button').forEach(el => el.textContent = 'Descargar');
-                // Puedes seguir añadiendo más elementos para traducir aquí
-            };
-
-            // Asegúrate de traducir cuando el contenido esté listo
-            setTimeout(translateUI, 1000);
         };
     </script>
 </body>
 </html>
-
 
