@@ -12,8 +12,8 @@ paths:
   /{lang}/DB:
     get:
       tags:
-        - Catálogo de datos
-      summary: Consultar catálogo de datos
+        - Catálogo 
+      summary: Consultar catálogo de tablas
       description: Devuelve el catálogo de datos disponibles en formato JSON.
       parameters:
         - name: lang
