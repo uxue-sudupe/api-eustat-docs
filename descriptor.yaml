@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: API de Eustat
-  description: Documentación interactiva para la API de Eustat. Respuestas en formato JSON-stat.
+  description: Documentación interactiva para la API de Eustat
   version: 1.0.0
 
 servers:
