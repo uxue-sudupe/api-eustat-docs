@@ -3,7 +3,7 @@ info:
   title: API de Eustat: Acceso a Datos Abiertos
   description: >
     Documentación interactiva para la API de Eustat. 
-    La API permite acceder a datos abiertos en formato JSON-stat, con funciones para explorar catálogos, metadatos y datos detallados.
+    La API permite acceder a datos abiertos en formato JSON, con funciones para explorar catálogos, metadatos y datos detallados.
   version: 1.0.0
 
 servers:
