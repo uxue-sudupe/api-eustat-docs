@@ -1,33 +1,25 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Interactiva</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css">
+  <title>Swagger UI with Dynamic Dropdowns</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
 </head>
 <body>
-    <div id="swagger-ui"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js"></script>
-    <script>
-        window.onload = () => {
-            const ui = SwaggerUIBundle({
-                url: 'descriptor.yaml', 
-                dom_id: '#swagger-ui',
-            });
-
-            // Personalización de textos
-            const translateUI = () => {
-                // Cambia el texto de los elementos una vez que SwaggerUI ha cargado
-                document.querySelectorAll('.required').forEach(el => el.textContent = 'requerido');
-                document.querySelectorAll('.download-url-button').forEach(el => el.textContent = 'Descargar');
-                // Puedes seguir añadiendo más elementos para traducir aquí
-            };
-
-            // Asegúrate de traducir cuando el contenido esté listo
-            setTimeout(translateUI, 1000);
-        };
-    </script>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+  <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+  <script src="./dynamic-dropdown-plugin.js"></script>
+  <script>
+    window.onload = () => {
+      SwaggerUI({
+        url: "descriptor.yaml",
+        dom_id: "#swagger-ui",
+        plugins: [dynamicDropdownPlugin],
+        presets: [SwaggerUI.presets.apis],
+      });
+    };
+  </script>
 </body>
 </html>
+
 
